@@ -5,13 +5,24 @@ class AppScaffold extends StatelessWidget {
   final String? title;
   final Widget body;
   final PreferredSizeWidget? appBar;
+  final List<Widget>? actions;
 
-  const AppScaffold({super.key, this.title, required this.body, this.appBar});
+  const AppScaffold({
+    super.key,
+    this.title,
+    required this.body,
+    this.appBar,
+    this.actions,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: appBar ?? (title != null ? CustomAppBar(title: title!) : null),
+      appBar:
+          appBar ??
+          (title != null
+              ? CustomAppBar(title: title!, actions: actions)
+              : null),
       body: body,
     );
   }

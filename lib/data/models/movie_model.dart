@@ -1,37 +1,44 @@
+import 'package:json_annotation/json_annotation.dart';
+
 import '../../domain/entities/movie.dart';
 
+part 'movie_model.g.dart';
+
+@JsonSerializable()
 class MovieModel extends Movie {
+  @JsonKey(name: 'poster_path')
+  final String? posterPathLocal;
+  @JsonKey(name: 'backdrop_path')
+  final String? backdropPathLocal;
+  @JsonKey(name: 'vote_average')
+  final double? voteAverageLocal;
+  @JsonKey(name: 'release_date')
+  final String? releaseDateLocal;
+  @JsonKey(name: 'title', readValue: _readTitle)
+  final String? titleLocal;
+
   const MovieModel({
-    required super.id,
-    required super.title,
-    required super.overview,
-    required super.posterPath,
-    required super.backdropPath,
-    required super.voteAverage,
-    required super.releaseDate,
-  });
+    super.id,
+    this.titleLocal,
+    super.overview,
+    this.posterPathLocal,
+    this.backdropPathLocal,
+    this.voteAverageLocal,
+    this.releaseDateLocal,
+  }) : super(
+         title: titleLocal,
+         posterPath: posterPathLocal,
+         backdropPath: backdropPathLocal,
+         voteAverage: voteAverageLocal,
+         releaseDate: releaseDateLocal,
+       );
 
-  factory MovieModel.fromJson(Map<String, dynamic> json) {
-    return MovieModel(
-      id: json['id'] as int? ?? 0,
-      title: json['title'] as String? ?? json['name'] as String? ?? '',
-      overview: json['overview'] as String? ?? '',
-      posterPath: json['poster_path'] as String? ?? '',
-      backdropPath: json['backdrop_path'] as String? ?? '',
-      voteAverage: (json['vote_average'] as num?)?.toDouble() ?? 0.0,
-      releaseDate: json['release_date'] as String? ?? '',
-    );
+  static String? _readTitle(Map json, String key) {
+    return json['title'] as String? ?? json['name'] as String?;
   }
 
-  Map<String, dynamic> toJson() {
-    return {
-      'id': id,
-      'title': title,
-      'overview': overview,
-      'poster_path': posterPath,
-      'backdrop_path': backdropPath,
-      'vote_average': voteAverage,
-      'release_date': releaseDate,
-    };
-  }
+  factory MovieModel.fromJson(Map<String, dynamic> json) =>
+      _$MovieModelFromJson(json);
+
+  Map<String, dynamic> toJson() => _$MovieModelToJson(this);
 }

@@ -1,6 +1,6 @@
-import '../../core/network/dio_client.dart';
-import '../models/movie_model.dart';
 import 'package:dio/dio.dart';
+import '../../core/network/api_clients.dart';
+import '../models/movie_model.dart';
 
 abstract class MovieRemoteDataSource {
   Future<List<MovieModel>> getPopularMovies();
@@ -8,20 +8,15 @@ abstract class MovieRemoteDataSource {
 }
 
 class MovieRemoteDataSourceImpl implements MovieRemoteDataSource {
-  final DioClient dioClient;
+  final ApiClients apiClient;
 
-  MovieRemoteDataSourceImpl({required this.dioClient});
+  MovieRemoteDataSourceImpl({required this.apiClient});
 
   @override
   Future<List<MovieModel>> getPopularMovies() async {
     try {
-      final response = await dioClient.dio.get('/movie/popular');
-      if (response.statusCode == 200) {
-        final List<dynamic> results = response.data['results'];
-        return results.map((json) => MovieModel.fromJson(json)).toList();
-      } else {
-        throw Exception('Failed to load popular movies');
-      }
+      final response = await apiClient.getPopularMovies();
+      return response.results ?? [];
     } on DioException catch (e) {
       throw Exception(e.message ?? 'Dio Exception occurred');
     } catch (e) {
@@ -32,12 +27,7 @@ class MovieRemoteDataSourceImpl implements MovieRemoteDataSource {
   @override
   Future<MovieModel> getMovieDetails(int id) async {
     try {
-      final response = await dioClient.dio.get('/movie/$id');
-      if (response.statusCode == 200) {
-        return MovieModel.fromJson(response.data);
-      } else {
-        throw Exception('Failed to load movie details');
-      }
+      return await apiClient.getMovieDetails(id);
     } on DioException catch (e) {
       throw Exception(e.message ?? 'Dio Exception occurred');
     } catch (e) {

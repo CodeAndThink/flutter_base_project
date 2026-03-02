@@ -11,6 +11,7 @@ import '../../presentation/home/cubit/home_cubit.dart';
 import '../../presentation/onboarding/bloc/onboarding_bloc.dart';
 
 // Movie imports
+import '../network/api_clients.dart';
 import '../network/dio_client.dart';
 import '../../data/datasources/movie_remote_data_source.dart';
 import '../../data/repositories/movie_repository_impl.dart';
@@ -19,6 +20,7 @@ import '../../domain/usecases/get_popular_movies.dart';
 import '../../domain/usecases/get_movie_details.dart';
 import '../../presentation/home/cubit/home_movie_cubit.dart';
 import '../../presentation/detail/cubit/movie_detail_cubit.dart';
+import '../theme/theme_cubit.dart';
 
 final sl = GetIt.instance;
 
@@ -48,6 +50,7 @@ Future<void> initServiceLocator() async {
         OnboardingBloc(checkOnboardingStatus: sl(), saveOnboardingStatus: sl()),
   );
   sl.registerFactory(() => HomeCubit(clearOnboardingStatus: sl()));
+  sl.registerLazySingleton(() => ThemeCubit());
 
   // Setup Movie Dependencies
   _setupMovieDependencies();
@@ -56,10 +59,11 @@ Future<void> initServiceLocator() async {
 void _setupMovieDependencies() {
   // Network
   sl.registerLazySingleton<DioClient>(() => DioClient());
+  sl.registerLazySingleton<ApiClients>(() => ApiClients(sl<DioClient>().dio));
 
   // Data sources
   sl.registerLazySingleton<MovieRemoteDataSource>(
-    () => MovieRemoteDataSourceImpl(dioClient: sl()),
+    () => MovieRemoteDataSourceImpl(apiClient: sl()),
   );
 
   // Repository

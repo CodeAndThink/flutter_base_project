@@ -28,10 +28,10 @@ class MovieDetailPage extends StatelessWidget {
               return CustomScrollView(
                 slivers: [
                   CustomSliverAppBar(
-                    title: movie.title,
-                    imagePath: movie.backdropPath.isNotEmpty
-                        ? movie.backdropPath
-                        : movie.posterPath,
+                    title: movie.title ?? 'Unknown',
+                    imagePath: (movie.backdropPath?.isNotEmpty == true)
+                        ? movie.backdropPath!
+                        : (movie.posterPath ?? ''),
                   ),
                   SliverToBoxAdapter(
                     child: Padding(
@@ -44,7 +44,7 @@ class MovieDetailPage extends StatelessWidget {
                               const Icon(Icons.star, color: Colors.amber),
                               const SizedBox(width: 4),
                               Text(
-                                movie.voteAverage.toStringAsFixed(1),
+                                movie.voteAverage?.toStringAsFixed(1) ?? '0.0',
                                 style: const TextStyle(
                                   fontSize: 18,
                                   fontWeight: FontWeight.bold,
@@ -52,7 +52,7 @@ class MovieDetailPage extends StatelessWidget {
                               ),
                               const Spacer(),
                               Text(
-                                'Release: ${movie.releaseDate}',
+                                'Release: ${movie.releaseDate ?? 'Unknown'}',
                                 style: const TextStyle(fontSize: 16),
                               ),
                             ],
@@ -67,7 +67,7 @@ class MovieDetailPage extends StatelessWidget {
                           ),
                           const SizedBox(height: 8),
                           Text(
-                            movie.overview,
+                            movie.overview ?? 'No overview available.',
                             style: const TextStyle(fontSize: 16, height: 1.5),
                           ),
                         ],

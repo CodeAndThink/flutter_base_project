@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../../../core/navigator/app_router.dart';
 import '../../../../core/services/service_locator.dart';
+import '../../../../core/widgets/buttons/theme_toggle_button.dart';
 import '../../../../core/widgets/images/app_network_image.dart';
 import '../../../../core/widgets/scaffold/app_scaffold.dart';
 import '../cubit/home_movie_cubit.dart';
@@ -18,6 +19,7 @@ class HomePage extends StatelessWidget {
       create: (context) => sl<HomeMovieCubit>()..fetchPopularMovies(),
       child: AppScaffold(
         title: 'Popular Movies',
+        actions: const [ThemeToggleButton(), SizedBox(width: 8)],
         body: BlocBuilder<HomeMovieCubit, HomeMovieState>(
           builder: (context, state) {
             if (state is HomeMovieLoading) {
@@ -51,14 +53,14 @@ class HomePage extends StatelessWidget {
                         children: [
                           Expanded(
                             child: AppNetworkImage(
-                              imagePath: movie.posterPath,
+                              imagePath: movie.posterPath ?? '',
                               fit: BoxFit.cover,
                             ),
                           ),
                           Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Text(
-                              movie.title,
+                              movie.title ?? 'Unknown',
                               maxLines: 2,
                               overflow: TextOverflow.ellipsis,
                               textAlign: TextAlign.center,
