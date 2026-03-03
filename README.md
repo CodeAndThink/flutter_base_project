@@ -6,7 +6,6 @@ A modern, responsive Flutter application showcasing a Clean Architecture impleme
 
 - **State Management**: [flutter_bloc](https://pub.dev/packages/flutter_bloc)
 - **Routing**: [go_router](https://pub.dev/packages/go_router)
-- **Dependency Injection**: [get_it](https://pub.dev/packages/get_it)
 - **Networking**: [dio](https://pub.dev/packages/dio) & [retrofit](https://pub.dev/packages/retrofit)
 - **JSON Parsing**: [json_serializable](https://pub.dev/packages/json_serializable) & [json_annotation](https://pub.dev/packages/json_annotation)
 - **Data Comparison**: [equatable](https://pub.dev/packages/equatable)
@@ -22,26 +21,30 @@ The project strictly follows **Clean Architecture** principles, dividing the cod
 ```text
 lib/
 ├── core/
-│   ├── navigator/       # GoRouter configuration & routes
+│   ├── common/          # Shared elements like AppTheme and ThemeCubit (Light/Dark Mode)
+│   ├── configs/         # App-wide configurations and constants
+│   ├── database/        # Local storage solutions (e.g., SharedPreferences)
+│   ├── failure/         # Error handling and failure models
 │   ├── network/         # Dio client, API Constants, Retrofit ApiClients
-│   ├── services/        # Service Locator (GetIt dependency injection config)
-│   ├── theme/           # AppTheme, colors, and ThemeCubit (Light/Dark Mode)
-│   └── widgets/         # Reusable, completely stateless UI components (AppBars, Buttons, Scaffold)
+│   └── utils/           # Helper functions and utilities
 │
 ├── data/
-│   ├── datasources/     # Remote (Retrofit) and Local (SharedPreferences) data sources
-│   ├── models/          # Data Models bridging the Domain Entities to JSON structs
-│   └── repositories/    # Concrete implementations of Domain Repository interfaces
+│   ├── models/          # Data models (Responses, Entities, Enums) bridging JSON and UI
+│   └── repositories/    # Concrete implementations for data fetching and caching
 │
-├── domain/
-│   ├── entities/        # Pure Dart objects representing core domain business data (e.g. Movie)
-│   ├── repositories/    # Abstract interfaces mapping out Data demands
-│   └── usecases/        # Specific actions the app can perform (e.g. GetPopularMovies)
+├── router/              # GoRouter configuration and route definitions
 │
-├── presentation/        # Organized by Feature (e.g., home, detail, onboarding)
-│   ├── detail/          # Movie detail screen and its cubits
-│   ├── home/            # Home listing screen and its cubits
-│   └── onboarding/      # First-time user experience and onboarding bloc
+├── ui/                  # User Interface layer (pages and shared widgets)
+│   ├── pages/           # Organized by Feature (e.g., home, detail, onboarding)
+│   │   ├── detail/      # Movie detail screen, cubit, and navigator
+│   │   ├── home/        # Home listing screen, cubit, navigator, and local widgets
+│   │   └── onboarding/  # First-time user experience and onboarding bloc
+│   │
+│   └── widgets/         # Reusable, completely stateless UI components
+│       ├── appbars/     # Custom AppBars
+│       ├── buttons/     # Reusable buttons
+│       ├── images/      # Network image wrappers
+│       └── scaffold/    # Base scaffold widgets
 │
 └── main.dart            # Application entry point & root BlocProviders
 ```
