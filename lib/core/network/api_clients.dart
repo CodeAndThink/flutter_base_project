@@ -1,8 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:retrofit/retrofit.dart';
 
-import '../../data/models/movie_model.dart';
-import '../../data/models/movie_response_model.dart';
+import 'package:flutter_base_project/data/models/response/movie_model.dart';
+import 'package:flutter_base_project/data/models/response/movie_response_model.dart';
 
 part 'api_clients.g.dart';
 

@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter_base_project/core/configs/app_configs.dart';
 import 'api_constants.dart';
 
 class DioClient {
@@ -9,8 +10,9 @@ class DioClient {
     _dio = Dio(
       BaseOptions(
         baseUrl: ApiConstants.baseUrl,
-        connectTimeout: const Duration(seconds: 10),
-        receiveTimeout: const Duration(seconds: 10),
+        connectTimeout: AppConfigs.connectTimeout,
+        sendTimeout: AppConfigs.sendTimeout,
+        receiveTimeout: AppConfigs.receiveTimeout,
         queryParameters: {'api_key': ApiConstants.apiToken},
       ),
     );
