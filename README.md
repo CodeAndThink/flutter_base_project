@@ -20,33 +20,37 @@ The project strictly follows **Clean Architecture** principles, dividing the cod
 
 ```text
 lib/
-├── core/
-│   ├── common/          # Shared elements like AppTheme and ThemeCubit (Light/Dark Mode)
-│   ├── configs/         # App-wide configurations and constants
-│   ├── database/        # Local storage solutions (e.g., SharedPreferences)
+├── core/                # Core functionalities, configs, extensions, and network logic
+│   ├── configs/         # App-wide configurations
+│   ├── constants/       # App constants
+│   ├── database/        # Local storage solutions
+│   ├── extensions/      # Dart extension methods
 │   ├── failure/         # Error handling and failure models
-│   ├── network/         # Dio client, API Constants, Retrofit ApiClients
+│   ├── navigation/      # Navigation helpers
+│   ├── network/         # Dio client and API Configurations
+│   ├── services/        # External services wrappers
 │   └── utils/           # Helper functions and utilities
 │
-├── data/
-│   ├── models/          # Data models (Responses, Entities, Enums) bridging JSON and UI
-│   └── repositories/    # Concrete implementations for data fetching and caching
+├── data/                # Data layer handles data fetching, models, and repositories
+│   ├── models/          # Data models (Entities, Enums, Responses)
+│   └── repositories/    # Concrete implementations for data sources
+│
+├── generated/           # Auto-generated code (e.g., localization)
+│
+├── l10n/                # Localization / Internationalization (ARB files)
+│
+├── presentation/        # User Interface layer (app entry, features, theme, widgets)
+│   ├── app/             # Application shell and top-level providers
+│   ├── features/        # Organized by Feature (e.g., detail, home, onboarding)
+│   ├── theme/           # App theme data and styling
+│   └── widgets/         # Reusable UI components
 │
 ├── router/              # GoRouter configuration and route definitions
 │
-├── ui/                  # User Interface layer (pages and shared widgets)
-│   ├── pages/           # Organized by Feature (e.g., home, detail, onboarding)
-│   │   ├── detail/      # Movie detail screen, cubit, and navigator
-│   │   ├── home/        # Home listing screen, cubit, navigator, and local widgets
-│   │   └── onboarding/  # First-time user experience and onboarding bloc
-│   │
-│   └── widgets/         # Reusable, completely stateless UI components
-│       ├── appbars/     # Custom AppBars
-│       ├── buttons/     # Reusable buttons
-│       ├── images/      # Network image wrappers
-│       └── scaffold/    # Base scaffold widgets
+├── ui/                  # Legacy or shared UI components
+│   └── widgets/         # Shared widgets (appbars, buttons, images)
 │
-└── main.dart            # Application entry point & root BlocProviders
+└── main.dart            # Application entry point
 ```
 
 ---
