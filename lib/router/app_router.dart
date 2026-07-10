@@ -1,7 +1,7 @@
 import 'package:go_router/go_router.dart';
-import 'package:flutter_base_project/ui/pages/home/page/home_page.dart';
-import 'package:flutter_base_project/ui/pages/onboarding/page/onboarding_page.dart';
-import 'package:flutter_base_project/ui/pages/detail/page/movie_detail_page.dart';
+import 'package:flutter_base_project/presentation/features/home/home_page.dart';
+import 'package:flutter_base_project/presentation/features/onboarding/onboarding_page.dart';
+import 'package:flutter_base_project/presentation/features/detail/movie_detail_page.dart';
 
 class AppRouter {
   static const String onboardingPath = '/';
