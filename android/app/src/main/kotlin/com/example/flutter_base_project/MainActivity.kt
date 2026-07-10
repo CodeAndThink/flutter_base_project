@@ -1,4 +1,4 @@
-package com.example.flutter_base_project
+package com.truongngo.flutter_base_project
 
 import io.flutter.embedding.android.FlutterActivity
 
