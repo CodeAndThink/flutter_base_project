@@ -7,7 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_base_project/presentation/widgets/scaffold/app_scaffold.dart';
 import 'package:flutter_base_project/presentation/features/detail/movie_detail_cubit.dart';
 import 'package:flutter_base_project/presentation/features/detail/movie_detail_state.dart';
-import 'package:flutter_base_project/data/repositories/movie_repository.dart';
+import 'package:flutter_base_project/domain/usecases/movie/get_movie_details_use_case.dart';
 
 class MovieDetailArgument {
   final int movieId;
@@ -23,7 +23,7 @@ class MovieDetailPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => MovieDetailCubit(
-        repository: context.read<MovieRepository>(),
+        getMovieDetails: context.read<GetMovieDetailsUseCase>(),
         navigator: MovieDetailNavigator(context),
       ),
       child: MovieDetailChildPage(args: args),

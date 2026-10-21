@@ -1,29 +1,29 @@
 import 'package:flutter_base_project/data/models/enum/load_status.dart';
-import 'package:flutter_base_project/data/repositories/onboarding_repository.dart';
+import 'package:flutter_base_project/domain/usecases/onboarding/clear_onboarding_use_case.dart';
 import 'package:flutter_base_project/presentation/features/detail/movie_detail_page.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_base_project/data/repositories/movie_repository.dart';
+import 'package:flutter_base_project/domain/usecases/movie/get_popular_movies_use_case.dart';
 import 'home_state.dart';
 import 'package:flutter_base_project/presentation/features/home/home_navigator.dart';
 
 class HomeCubit extends Cubit<HomeState> {
-  final MovieRepository repository;
+  final GetPopularMoviesUseCase getPopularMovies;
   final HomeNavigator navigator;
-  final OnboardingRepository onboardingRepository;
+  final ClearOnboardingUseCase clearOnboarding;
 
   HomeCubit({
-    required this.repository,
+    required this.getPopularMovies,
     required this.navigator,
-    required this.onboardingRepository,
+    required this.clearOnboarding,
   }) : super(const HomeState());
 
   Future<void> resetOnboarding() async {
-    await onboardingRepository.clearOnboarding();
+    await clearOnboarding();
   }
 
   Future<void> fetchPopularMovies() async {
     emit(state.copyWith(fetchPopularMoviesStatus: LoadStatus.loading));
-    final result = await repository.getPopularMovies();
+    final result = await getPopularMovies();
     result.fold(
       ifLeft: (failure) =>
           emit(state.copyWith(fetchPopularMoviesStatus: LoadStatus.failure)),

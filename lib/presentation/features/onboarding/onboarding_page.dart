@@ -7,7 +7,8 @@ import 'package:flutter_base_project/data/models/entities/onboarding_item.dart';
 import 'package:flutter_base_project/presentation/features/onboarding/onboarding_cubit.dart';
 import 'package:flutter_base_project/presentation/features/onboarding/onboarding_state.dart';
 import 'package:flutter_base_project/presentation/features/onboarding/onboarding_navigator.dart';
-import 'package:flutter_base_project/data/repositories/onboarding_repository.dart';
+import 'package:flutter_base_project/domain/usecases/onboarding/has_completed_onboarding_use_case.dart';
+import 'package:flutter_base_project/domain/usecases/onboarding/complete_onboarding_use_case.dart';
 
 class OnboardingPage extends StatelessWidget {
   const OnboardingPage({super.key});
@@ -16,7 +17,8 @@ class OnboardingPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => OnboardingCubit(
-        repository: context.read<OnboardingRepository>(),
+        hasCompletedOnboarding: context.read<HasCompletedOnboardingUseCase>(),
+        completeOnboardingUseCase: context.read<CompleteOnboardingUseCase>(),
         navigator: OnboardingNavigator(context),
       )..checkIfOnboardingCompleted(),
       child: const OnboardingView(),

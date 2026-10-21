@@ -35,6 +35,9 @@ lib/
 │   ├── models/          # Data models (Entities, Enums, Responses)
 │   └── repositories/    # Concrete implementations for data sources
 │
+├── domain/              # Use cases called by Cubits
+│   └── usecases/         # Movie, onboarding, and settings operations
+│
 ├── generated/           # Auto-generated code (e.g., localization)
 │
 ├── l10n/                # Localization / Internationalization (ARB files)
@@ -101,3 +104,11 @@ flutter analyze
 * **Dynamic Theming**: An interactive toggle inside the Home App Bar seamlessly switches between Light and Dark mode using a `ThemeCubit`.
 * **Code-Generated API Routes**: Utilizes Retrofit to cleanly declare API routes on an interface, abstracting away complex parsing and boilerplate code.
 * **Component Extraction**: All generic UI logic (Scaffolds, custom App Bars, Back Buttons, Network Images) are perfectly modularized into `lib/core/widgets` for instantaneous reuse.
+
+## Use cases
+
+Cubits receive use cases through constructor injection. Data operations follow
+`Cubit → UseCase → Repository → API / local storage`. Each use case exposes
+a typed `call()` method; providers are registered in `main.dart`. Navigation
+and UI state updates remain in Cubits. Settings persistence is encapsulated
+by `SettingsRepository`, preserving existing storage keys and defaults.
