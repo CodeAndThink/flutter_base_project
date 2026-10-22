@@ -1,124 +1,114 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-/// Central typography configuration and styles resolved from the active theme.
-class AppTextStyles {
-  final TextTheme _theme;
-  const AppTextStyles(this._theme);
-
-  TextStyle get displayLarge => _theme.displayLarge ?? const TextStyle();
-  TextStyle get displayMedium => _theme.displayMedium ?? const TextStyle();
-  TextStyle get displaySmall => _theme.displaySmall ?? const TextStyle();
-  TextStyle get headlineLarge => _theme.headlineLarge ?? const TextStyle();
-  TextStyle get headlineMedium => _theme.headlineMedium ?? const TextStyle();
-  TextStyle get headlineSmall => _theme.headlineSmall ?? const TextStyle();
-  TextStyle get titleLarge => _theme.titleLarge ?? const TextStyle();
-  TextStyle get titleMedium => _theme.titleMedium ?? const TextStyle();
-  TextStyle get titleSmall => _theme.titleSmall ?? const TextStyle();
-  TextStyle get bodyLarge => _theme.bodyLarge ?? const TextStyle();
-  TextStyle get bodyMedium => _theme.bodyMedium ?? const TextStyle();
-  TextStyle get bodySmall => _theme.bodySmall ?? const TextStyle();
-  TextStyle get labelLarge => _theme.labelLarge ?? const TextStyle();
-  TextStyle get labelMedium => _theme.labelMedium ?? const TextStyle();
-  TextStyle get labelSmall => _theme.labelSmall ?? const TextStyle();
+/// Shared typography. Static styles inherit color and font from DefaultTextStyle.
+/// The application theme supplies Nunito and light/dark text colors.
+abstract final class AppTextStyles {
+  static const displayLarge = TextStyle(
+    fontSize: 57,
+    fontWeight: FontWeight.w400,
+  );
+  static const displayMedium = TextStyle(
+    fontSize: 45,
+    fontWeight: FontWeight.w400,
+  );
+  static const displaySmall = TextStyle(
+    fontSize: 36,
+    fontWeight: FontWeight.w400,
+  );
+  static const headlineLarge = TextStyle(
+    fontSize: 32,
+    fontWeight: FontWeight.bold,
+  );
+  static const headlineMedium = TextStyle(
+    fontSize: 28,
+    fontWeight: FontWeight.bold,
+  );
+  static const headlineSmall = TextStyle(
+    fontSize: 24,
+    fontWeight: FontWeight.bold,
+  );
+  static const titleLarge = TextStyle(
+    fontSize: 20,
+    fontWeight: FontWeight.bold,
+  );
+  static const titleMedium = TextStyle(
+    fontSize: 16,
+    fontWeight: FontWeight.bold,
+    letterSpacing: 0.15,
+  );
+  static const titleSmall = TextStyle(
+    fontSize: 14,
+    fontWeight: FontWeight.bold,
+    letterSpacing: 0.1,
+  );
+  static const bodyLarge = TextStyle(
+    fontSize: 16,
+    fontWeight: FontWeight.w400,
+    letterSpacing: 0.5,
+  );
+  static const bodyMedium = TextStyle(
+    fontSize: 14,
+    fontWeight: FontWeight.w400,
+    letterSpacing: 0.25,
+  );
+  static const bodySmall = TextStyle(
+    fontSize: 12,
+    fontWeight: FontWeight.w400,
+    letterSpacing: 0.4,
+  );
+  static const labelLarge = TextStyle(
+    fontSize: 14,
+    fontWeight: FontWeight.w500,
+    letterSpacing: 0.1,
+  );
+  static const labelMedium = TextStyle(
+    fontSize: 12,
+    fontWeight: FontWeight.w500,
+    letterSpacing: 0.5,
+  );
+  static const labelSmall = TextStyle(
+    fontSize: 11,
+    fontWeight: FontWeight.w500,
+    letterSpacing: 0.5,
+  );
 
   // Partial styles retain DefaultTextStyle inheritance at their call sites.
-  TextStyle get movieTitle => const TextStyle(fontWeight: FontWeight.bold);
-  TextStyle get movieRating =>
-      const TextStyle(fontSize: 18, fontWeight: FontWeight.bold);
-  TextStyle get movieRelease => const TextStyle(fontSize: 16);
-  TextStyle get movieOverviewTitle =>
-      const TextStyle(fontSize: 22, fontWeight: FontWeight.bold);
-  TextStyle get movieOverviewBody => const TextStyle(fontSize: 16, height: 1.5);
-  TextStyle get imageTitle =>
-      const TextStyle(shadows: [Shadow(color: Colors.black, blurRadius: 4)]);
+  static const movieTitle = TextStyle(fontWeight: FontWeight.bold);
+  static const movieRating = TextStyle(
+    fontSize: 18,
+    fontWeight: FontWeight.bold,
+  );
+  static const movieRelease = TextStyle(fontSize: 16);
+  static const movieOverviewTitle = TextStyle(
+    fontSize: 22,
+    fontWeight: FontWeight.bold,
+  );
+  static const movieOverviewBody = TextStyle(fontSize: 16, height: 1.5);
+  static const imageTitle = TextStyle(
+    shadows: [Shadow(color: Colors.black, blurRadius: 4)],
+  );
 
   static TextTheme buildTextTheme({required bool isDarkMode}) {
-    final textColor = isDarkMode ? const Color(0xFFD6D6D6) : Colors.black;
-    return GoogleFonts.nunitoTextTheme().copyWith(
-      displayLarge: GoogleFonts.nunito(
-        fontSize: 57,
-        fontWeight: FontWeight.w400,
-        color: textColor,
+    final color = isDarkMode ? const Color(0xFFD6D6D6) : Colors.black;
+    return GoogleFonts.nunitoTextTheme(
+      const TextTheme(
+        displayLarge: displayLarge,
+        displayMedium: displayMedium,
+        displaySmall: displaySmall,
+        headlineLarge: headlineLarge,
+        headlineMedium: headlineMedium,
+        headlineSmall: headlineSmall,
+        titleLarge: titleLarge,
+        titleMedium: titleMedium,
+        titleSmall: titleSmall,
+        bodyLarge: bodyLarge,
+        bodyMedium: bodyMedium,
+        bodySmall: bodySmall,
+        labelLarge: labelLarge,
+        labelMedium: labelMedium,
+        labelSmall: labelSmall,
       ),
-      displayMedium: GoogleFonts.nunito(
-        fontSize: 45,
-        fontWeight: FontWeight.w400,
-        color: textColor,
-      ),
-      displaySmall: GoogleFonts.nunito(
-        fontSize: 36,
-        fontWeight: FontWeight.w400,
-        color: textColor,
-      ),
-      headlineLarge: GoogleFonts.nunito(
-        fontSize: 32,
-        fontWeight: FontWeight.bold,
-        color: textColor,
-      ),
-      headlineMedium: GoogleFonts.nunito(
-        fontSize: 28,
-        fontWeight: FontWeight.bold,
-        color: textColor,
-      ),
-      headlineSmall: GoogleFonts.nunito(
-        fontSize: 24,
-        fontWeight: FontWeight.bold,
-        color: textColor,
-      ),
-      titleLarge: GoogleFonts.nunito(
-        fontSize: 20,
-        fontWeight: FontWeight.bold,
-        color: textColor,
-      ),
-      titleMedium: GoogleFonts.nunito(
-        fontSize: 16,
-        fontWeight: FontWeight.bold,
-        color: textColor,
-        letterSpacing: 0.15,
-      ),
-      titleSmall: GoogleFonts.nunito(
-        fontSize: 14,
-        fontWeight: FontWeight.bold,
-        color: textColor,
-        letterSpacing: 0.1,
-      ),
-      bodyLarge: GoogleFonts.nunito(
-        fontSize: 16,
-        fontWeight: FontWeight.w400,
-        color: textColor,
-        letterSpacing: 0.5,
-      ),
-      bodyMedium: GoogleFonts.nunito(
-        fontSize: 14,
-        fontWeight: FontWeight.w400,
-        color: textColor,
-        letterSpacing: 0.25,
-      ),
-      bodySmall: GoogleFonts.nunito(
-        fontSize: 12,
-        fontWeight: FontWeight.w400,
-        color: textColor,
-        letterSpacing: 0.4,
-      ),
-      labelLarge: GoogleFonts.nunito(
-        fontSize: 14,
-        fontWeight: FontWeight.w500,
-        color: textColor,
-        letterSpacing: 0.1,
-      ),
-      labelMedium: GoogleFonts.nunito(
-        fontSize: 12,
-        fontWeight: FontWeight.w500,
-        color: textColor,
-        letterSpacing: 0.5,
-      ),
-      labelSmall: GoogleFonts.nunito(
-        fontSize: 11,
-        fontWeight: FontWeight.w500,
-        color: textColor,
-        letterSpacing: 0.5,
-      ),
-    );
+    ).apply(bodyColor: color, displayColor: color);
   }
 }

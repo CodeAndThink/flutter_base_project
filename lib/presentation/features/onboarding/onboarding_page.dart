@@ -1,4 +1,4 @@
-import 'package:flutter_base_project/core/extensions/text_style_extensions.dart';
+import 'package:flutter_base_project/presentation/theme/app_text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_base_project/core/constants/app_assets.dart';
 import 'package:flutter_base_project/core/extensions/num_extensions.dart';
@@ -115,13 +115,13 @@ class _OnboardingViewState extends State<OnboardingView> {
                               32.height,
                               Text(
                                 items[index].title,
-                                style: context.textStyles.headlineMedium,
+                                style: AppTextStyles.headlineMedium,
                                 textAlign: TextAlign.center,
                               ),
                               16.height,
                               Text(
                                 items[index].description,
-                                style: context.textStyles.bodyLarge,
+                                style: AppTextStyles.bodyLarge,
                                 textAlign: TextAlign.center,
                               ),
                             ],

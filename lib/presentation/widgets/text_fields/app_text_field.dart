@@ -1,4 +1,4 @@
-import 'package:flutter_base_project/core/extensions/text_style_extensions.dart';
+import 'package:flutter_base_project/presentation/theme/app_text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_base_project/core/constants/app_colors.dart';
 import 'package:flutter_base_project/core/extensions/num_extensions.dart';
@@ -48,21 +48,21 @@ class AppTextField extends StatelessWidget {
       validator: validator,
       onChanged: onChanged,
       obscureText: obscureText,
-      style: context.textStyles.bodyMedium,
+      style: AppTextStyles.bodyMedium,
       focusNode: focusNode,
       maxLines: maxLines,
       enabled: isEnable,
       decoration: InputDecoration(
         errorMaxLines: 10,
-        errorStyle: context.textStyles.bodyMedium.copyWith(
+        errorStyle: AppTextStyles.bodyMedium.copyWith(
           color: theme.colorScheme.error,
         ),
         labelText: labelText,
-        labelStyle: context.textStyles.bodyMedium.copyWith(
+        labelStyle: AppTextStyles.bodyMedium.copyWith(
           color: theme.colorScheme.onSurface.withValues(alpha: 0.7),
         ),
         hintText: hintText,
-        hintStyle: context.textStyles.bodyMedium.copyWith(
+        hintStyle: AppTextStyles.bodyMedium.copyWith(
           color: AppColors.placeholderText,
         ),
         prefixIcon: prefixIcon != null

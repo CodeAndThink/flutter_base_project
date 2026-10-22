@@ -115,19 +115,15 @@ by `SettingsRepository`, preserving existing storage keys and defaults.
 
 ## Text styles
 
-`AppTextStyles` owns the Nunito text theme and shared text styles. Use the
-`BuildContext` extension to resolve styles from the nearest active theme:
+`AppTextStyles` defines shared typography without requiring `BuildContext`:
 
 ```dart
-import 'package:flutter_base_project/core/extensions/text_style_extensions.dart';
+import 'package:flutter_base_project/presentation/theme/app_text_styles.dart';
 
-Text('Title', style: context.textStyles.titleLarge);
-Text(
-  'Description',
-  style: context.textStyles.bodyMedium.copyWith(
-    color: Theme.of(context).colorScheme.primary,
-  ),
-);
+Text('Title', style: AppTextStyles.titleLarge);
+Text('Description', style: AppTextStyles.bodyMedium.copyWith(color: Colors.red));
 ```
 
-Read `context.textStyles` during widget build so theme changes are reflected.
+Static styles inherit font and color from `DefaultTextStyle`. The app theme
+supplies Nunito and light/dark colors. Typography sizes and weights remain fixed;
+use an explicit style override when a widget needs different typography.

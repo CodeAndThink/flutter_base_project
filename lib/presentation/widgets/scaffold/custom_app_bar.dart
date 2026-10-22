@@ -1,4 +1,4 @@
-import 'package:flutter_base_project/core/extensions/text_style_extensions.dart';
+import 'package:flutter_base_project/presentation/theme/app_text_styles.dart';
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_base_project/core/extensions/num_extensions.dart';
@@ -81,7 +81,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                             : null),
                     middle: Text(
                       title,
-                      style: context.textStyles.titleLarge.copyWith(
+                      style: AppTextStyles.titleLarge.copyWith(
                         color: theme.colorScheme.primary,
                       ),
                       maxLines: 1,

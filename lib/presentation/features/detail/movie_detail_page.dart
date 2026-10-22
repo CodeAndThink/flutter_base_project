@@ -1,4 +1,4 @@
-import 'package:flutter_base_project/core/extensions/text_style_extensions.dart';
+import 'package:flutter_base_project/presentation/theme/app_text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_base_project/core/network/api_constants.dart';
 import 'package:flutter_base_project/generated/l10n.dart';
@@ -91,26 +91,26 @@ class _MovieDetailChildPageState extends State<MovieDetailChildPage> {
                             const SizedBox(width: 4),
                             Text(
                               movie?.voteAverage?.toStringAsFixed(1) ?? '0.0',
-                              style: context.textStyles.movieRating,
+                              style: AppTextStyles.movieRating,
                             ),
                             const Spacer(),
                             Text(
                               l10n.detailRelease(
                                 movie?.releaseDate ?? l10n.commonUnknown,
                               ),
-                              style: context.textStyles.movieRelease,
+                              style: AppTextStyles.movieRelease,
                             ),
                           ],
                         ),
                         const SizedBox(height: 16),
                         Text(
                           l10n.detailOverview,
-                          style: context.textStyles.movieOverviewTitle,
+                          style: AppTextStyles.movieOverviewTitle,
                         ),
                         const SizedBox(height: 8),
                         Text(
                           movie?.overview ?? l10n.detailNoOverviewAvailable,
-                          style: context.textStyles.movieOverviewBody,
+                          style: AppTextStyles.movieOverviewBody,
                         ),
                       ],
                     ),

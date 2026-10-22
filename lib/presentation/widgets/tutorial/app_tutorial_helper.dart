@@ -1,4 +1,4 @@
-import 'package:flutter_base_project/core/extensions/text_style_extensions.dart';
+import 'package:flutter_base_project/presentation/theme/app_text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_base_project/core/extensions/num_extensions.dart';
 import 'package:flutter_base_project/generated/l10n.dart';
@@ -65,7 +65,7 @@ class AppTutorialHelper {
               children: <Widget>[
                 Text(
                   title,
-                  style: context.textStyles.titleLarge.copyWith(
+                  style: AppTextStyles.titleLarge.copyWith(
                     color: Colors.white,
                   ),
                 ),
@@ -73,7 +73,7 @@ class AppTutorialHelper {
                   padding: const EdgeInsets.only(top: 10.0, bottom: 20.0),
                   child: Text(
                     desc,
-                    style: context.textStyles.bodyMedium.copyWith(
+                    style: AppTextStyles.bodyMedium.copyWith(
                       color: Colors.white,
                     ),
                   ),
@@ -85,7 +85,7 @@ class AppTutorialHelper {
                       onPressed: controller.skip,
                       child: Text(
                         l10n.commonSkip,
-                        style: context.textStyles.titleSmall.copyWith(
+                        style: AppTextStyles.titleSmall.copyWith(
                           color: Colors.white70,
                         ),
                       ),
@@ -98,7 +98,7 @@ class AppTutorialHelper {
                       onPressed: controller.next,
                       child: Text(
                         l10n.commonNext,
-                        style: context.textStyles.titleSmall.copyWith(
+                        style: AppTextStyles.titleSmall.copyWith(
                           color: theme.colorScheme.surface,
                         ),
                       ),

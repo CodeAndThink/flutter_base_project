@@ -1,4 +1,4 @@
-import 'package:flutter_base_project/core/extensions/text_style_extensions.dart';
+import 'package:flutter_base_project/presentation/theme/app_text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_base_project/core/extensions/num_extensions.dart';
 
@@ -40,7 +40,7 @@ class AppTitleHeader extends StatelessWidget {
           12.width,
           Text(
             title.toUpperCase(),
-            style: context.textStyles.titleSmall.copyWith(
+            style: AppTextStyles.titleSmall.copyWith(
               color: displayColor,
               letterSpacing: 1.5,
             ),

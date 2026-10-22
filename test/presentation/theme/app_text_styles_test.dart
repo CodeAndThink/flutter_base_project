@@ -1,74 +1,51 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:flutter_base_project/core/extensions/text_style_extensions.dart';
+import 'package:flutter_base_project/presentation/theme/app_text_styles.dart';
 
 void main() {
-  testWidgets(
-    'text styles follow the nearest theme and update on theme change',
-    (tester) async {
-      Widget build(Color color) => MaterialApp(
-        theme: ThemeData(
-          textTheme: TextTheme(
-            bodyMedium: TextStyle(color: color, fontSize: 19),
-          ),
-        ),
-        home: Builder(
-          builder: (context) =>
-              Text('Example', style: context.textStyles.bodyMedium),
-        ),
-      );
-      await tester.pumpWidget(build(Colors.black));
-      expect(
-        tester.widget<Text>(find.text('Example')).style?.color,
-        Colors.black,
-      );
-      expect(tester.widget<Text>(find.text('Example')).style?.fontSize, 19);
-      await tester.pumpWidget(build(Colors.white));
-      await tester.pumpAndSettle();
-      expect(
-        tester.widget<Text>(find.text('Example')).style?.color,
-        Colors.white,
-      );
-    },
-  );
-
-  testWidgets('copyWith customizes one style without changing the theme', (
+  testWidgets('static styles inherit color and font from their surroundings', (
     tester,
   ) async {
-    await tester.pumpWidget(
-      MaterialApp(
-        home: Builder(
-          builder: (context) {
-            final original = context.textStyles.titleMedium;
-            final customized = original.copyWith(color: Colors.red);
-            expect(customized.color, Colors.red);
-            expect(customized.fontSize, original.fontSize);
-            expect(context.textStyles.titleMedium, original);
-            expect(original, Theme.of(context).textTheme.titleMedium);
-            return const SizedBox();
-          },
-        ),
+    Widget build(Color color) => MaterialApp(
+      home: DefaultTextStyle(
+        style: TextStyle(color: color, fontFamily: 'TestFont'),
+        child: Text('Example', style: AppTextStyles.bodyMedium),
       ),
     );
+    TextStyle renderedStyle() =>
+        (tester
+                    .widget<RichText>(
+                      find.descendant(
+                        of: find.text('Example'),
+                        matching: find.byType(RichText),
+                      ),
+                    )
+                    .text
+                as TextSpan)
+            .style!;
+    await tester.pumpWidget(build(Colors.black));
+    expect(renderedStyle().color, Colors.black);
+    expect(renderedStyle().fontFamily, 'TestFont');
+    expect(renderedStyle().fontSize, 14);
+    await tester.pumpWidget(build(Colors.white));
+    await tester.pumpAndSettle();
+    expect(renderedStyle().color, Colors.white);
+    expect(AppTextStyles.bodyMedium.color, isNull);
   });
 
-  testWidgets('movie styles preserve inherited color and existing typography', (
-    tester,
-  ) async {
-    await tester.pumpWidget(
-      MaterialApp(
-        home: Builder(
-          builder: (context) {
-            expect(context.textStyles.movieRating.fontSize, 18);
-            expect(context.textStyles.movieRating.fontWeight, FontWeight.bold);
-            expect(context.textStyles.movieOverviewTitle.fontSize, 22);
-            expect(context.textStyles.movieOverviewBody.height, 1.5);
-            expect(context.textStyles.movieOverviewBody.color, isNull);
-            expect(context.textStyles.movieTitle.inherit, isTrue);
-            return const SizedBox();
-          },
-        ),
-      ),
-    );
+  test('copyWith customizes a static style without changing its default', () {
+    final customized = AppTextStyles.titleMedium.copyWith(color: Colors.red);
+    expect(customized.color, Colors.red);
+    expect(customized.fontSize, 16);
+    expect(AppTextStyles.titleMedium.color, isNull);
+  });
+
+  test('movie styles preserve inherited color and typography', () {
+    expect(AppTextStyles.movieRating.fontSize, 18);
+    expect(AppTextStyles.movieRating.fontWeight, FontWeight.bold);
+    expect(AppTextStyles.movieOverviewTitle.fontSize, 22);
+    expect(AppTextStyles.movieOverviewBody.height, 1.5);
+    expect(AppTextStyles.movieOverviewBody.color, isNull);
+    expect(AppTextStyles.movieTitle.inherit, isTrue);
   });
 }
