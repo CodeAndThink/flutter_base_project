@@ -1,23 +1,26 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_base_project/core/constants/key_constants.dart';
 import 'package:flutter_base_project/presentation/app/theme_state.dart';
 import 'package:flutter_base_project/presentation/widgets/cubit/base_cubit.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_base_project/domain/usecases/settings/get_theme_mode_use_case.dart';
+import 'package:flutter_base_project/domain/usecases/settings/set_theme_mode_use_case.dart';
 
 class ThemeCubit extends BaseCubit<ThemeState> {
-  final SharedPreferences _prefs;
+  final SetThemeModeUseCase _setThemeMode;
 
-  ThemeCubit(this._prefs) : super(_loadInitialState(_prefs));
+  ThemeCubit({
+    required GetThemeModeUseCase getThemeMode,
+    required SetThemeModeUseCase setThemeMode,
+  }) : _setThemeMode = setThemeMode,
+       super(_loadInitialState(getThemeMode));
 
-  static ThemeState _loadInitialState(SharedPreferences prefs) {
-    final themeIndex =
-        prefs.getInt(KeyConstants.themeMode) ?? ThemeMode.system.index;
+  static ThemeState _loadInitialState(GetThemeModeUseCase getThemeMode) {
+    final themeIndex = getThemeMode();
 
     return ThemeState(themeMode: ThemeMode.values[themeIndex]);
   }
 
   void updateTheme({required ThemeMode mode}) {
-    _prefs.setInt(KeyConstants.themeMode, mode.index);
+    _setThemeMode(mode.index);
     safeEmit(state.copyWith(themeMode: mode));
   }
 

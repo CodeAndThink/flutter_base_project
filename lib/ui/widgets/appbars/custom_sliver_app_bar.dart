@@ -1,3 +1,4 @@
+import 'package:flutter_base_project/presentation/theme/app_text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_base_project/ui/widgets/buttons/app_back_button.dart';
 import 'package:flutter_base_project/ui/widgets/images/app_network_image.dart';
@@ -19,12 +20,7 @@ class CustomSliverAppBar extends StatelessWidget {
       pinned: true,
       leading: const AppBackButton(),
       flexibleSpace: FlexibleSpaceBar(
-        title: Text(
-          title,
-          style: const TextStyle(
-            shadows: [Shadow(color: Colors.black, blurRadius: 4)],
-          ),
-        ),
+        title: Text(title, style: AppTextStyles.imageTitle),
         background: AppNetworkImage(imagePath: imagePath, fit: BoxFit.cover),
       ),
     );

@@ -35,6 +35,9 @@ lib/
 │   ├── models/          # Data models (Entities, Enums, Responses)
 │   └── repositories/    # Concrete implementations for data sources
 │
+├── domain/              # Use cases called by Cubits
+│   └── usecases/         # Movie, onboarding, and settings operations
+│
 ├── generated/           # Auto-generated code (e.g., localization)
 │
 ├── l10n/                # Localization / Internationalization (ARB files)
@@ -101,3 +104,26 @@ flutter analyze
 * **Dynamic Theming**: An interactive toggle inside the Home App Bar seamlessly switches between Light and Dark mode using a `ThemeCubit`.
 * **Code-Generated API Routes**: Utilizes Retrofit to cleanly declare API routes on an interface, abstracting away complex parsing and boilerplate code.
 * **Component Extraction**: All generic UI logic (Scaffolds, custom App Bars, Back Buttons, Network Images) are perfectly modularized into `lib/core/widgets` for instantaneous reuse.
+
+## Use cases
+
+Cubits receive use cases through constructor injection. Data operations follow
+`Cubit → UseCase → Repository → API / local storage`. Each use case exposes
+a typed `call()` method; providers are registered in `main.dart`. Navigation
+and UI state updates remain in Cubits. Settings persistence is encapsulated
+by `SettingsRepository`, preserving existing storage keys and defaults.
+
+## Text styles
+
+`AppTextStyles` defines shared typography without requiring `BuildContext`:
+
+```dart
+import 'package:flutter_base_project/presentation/theme/app_text_styles.dart';
+
+Text('Title', style: AppTextStyles.titleLarge);
+Text('Description', style: AppTextStyles.bodyMedium.copyWith(color: Colors.red));
+```
+
+Static styles inherit font and color from `DefaultTextStyle`. The app theme
+supplies Nunito and light/dark colors. Typography sizes and weights remain fixed;
+use an explicit style override when a widget needs different typography.

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_base_project/generated/l10n.dart';
 import 'package:flutter_base_project/core/extensions/num_extensions.dart';
-import 'package:flutter_base_project/data/repositories/onboarding_repository.dart';
+import 'package:flutter_base_project/domain/usecases/onboarding/clear_onboarding_use_case.dart';
 import 'package:flutter_base_project/presentation/app/locale_cubit.dart';
 import 'package:flutter_base_project/presentation/app/theme_cubit.dart';
 import 'package:flutter_base_project/presentation/features/home/home_navigator.dart';
@@ -10,7 +10,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_base_project/presentation/widgets/scaffold/app_scaffold.dart';
 import 'package:flutter_base_project/presentation/features/home/home_cubit.dart';
 import 'package:flutter_base_project/presentation/features/home/home_state.dart';
-import 'package:flutter_base_project/data/repositories/movie_repository.dart';
+import 'package:flutter_base_project/domain/usecases/movie/get_popular_movies_use_case.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -19,8 +19,8 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => HomeCubit(
-        repository: context.read<MovieRepository>(),
-        onboardingRepository: context.read<OnboardingRepository>(),
+        getPopularMovies: context.read<GetPopularMoviesUseCase>(),
+        clearOnboarding: context.read<ClearOnboardingUseCase>(),
         navigator: HomeNavigator(context),
       ),
       child: const HomeChildPage(),

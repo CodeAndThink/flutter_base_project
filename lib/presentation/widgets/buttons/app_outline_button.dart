@@ -1,3 +1,4 @@
+import 'package:flutter_base_project/presentation/theme/app_text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_base_project/core/extensions/num_extensions.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -52,9 +53,8 @@ class AppOutlineButton extends StatelessWidget {
                   if (icon != null) ...[Icon(icon, size: 20), 8.width],
                   Text(
                     text,
-                    style: (textStyle ?? theme.textTheme.titleMedium)?.copyWith(
-                      color: foregroundColor,
-                    ),
+                    style: (textStyle ?? AppTextStyles.titleMedium)
+                        .copyWith(color: foregroundColor),
                   ),
                 ],
               ),
