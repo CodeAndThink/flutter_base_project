@@ -1,3 +1,4 @@
+import 'package:flutter_base_project/core/extensions/text_style_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_base_project/core/extensions/num_extensions.dart';
 import '../buttons/app_filled_button.dart';
@@ -134,12 +135,12 @@ class _AppDialogWidget extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             if (headerIcon != null) ...[headerIcon!, 12.height],
-            Text(title, style: Theme.of(context).textTheme.titleLarge),
+            Text(title, style: context.textStyles.titleLarge),
             12.height,
             Text(
               message,
               textAlign: TextAlign.center,
-              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+              style: context.textStyles.bodyMedium.copyWith(
                 color: Theme.of(context).colorScheme.onSurfaceVariant,
               ),
               maxLines: 5,

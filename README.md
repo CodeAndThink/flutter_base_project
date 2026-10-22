@@ -112,3 +112,22 @@ Cubits receive use cases through constructor injection. Data operations follow
 a typed `call()` method; providers are registered in `main.dart`. Navigation
 and UI state updates remain in Cubits. Settings persistence is encapsulated
 by `SettingsRepository`, preserving existing storage keys and defaults.
+
+## Text styles
+
+`AppTextStyles` owns the Nunito text theme and shared text styles. Use the
+`BuildContext` extension to resolve styles from the nearest active theme:
+
+```dart
+import 'package:flutter_base_project/core/extensions/text_style_extensions.dart';
+
+Text('Title', style: context.textStyles.titleLarge);
+Text(
+  'Description',
+  style: context.textStyles.bodyMedium.copyWith(
+    color: Theme.of(context).colorScheme.primary,
+  ),
+);
+```
+
+Read `context.textStyles` during widget build so theme changes are reflected.

@@ -1,3 +1,4 @@
+import 'package:flutter_base_project/core/extensions/text_style_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_base_project/core/constants/app_colors.dart';
 import 'package:flutter_base_project/core/extensions/num_extensions.dart';
@@ -66,8 +67,8 @@ class AppFilledButton extends StatelessWidget {
                   Flexible(
                     child: Text(
                       text,
-                      style: (textStyle ?? theme.textTheme.titleMedium)
-                          ?.copyWith(color: foreColor),
+                      style: (textStyle ?? context.textStyles.titleMedium)
+                          .copyWith(color: foreColor),
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                     ),

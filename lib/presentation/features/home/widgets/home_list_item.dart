@@ -1,3 +1,4 @@
+import 'package:flutter_base_project/core/extensions/text_style_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_base_project/core/network/api_constants.dart';
 import 'package:flutter_base_project/data/models/entities/movie.dart';
@@ -33,7 +34,7 @@ class HomeListItem extends StatelessWidget {
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
                 textAlign: TextAlign.center,
-                style: const TextStyle(fontWeight: FontWeight.bold),
+                style: context.textStyles.movieTitle,
               ),
             ),
           ],

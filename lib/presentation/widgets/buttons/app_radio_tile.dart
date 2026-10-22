@@ -1,3 +1,4 @@
+import 'package:flutter_base_project/core/extensions/text_style_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_base_project/core/extensions/num_extensions.dart';
 
@@ -56,7 +57,7 @@ class AppRadioTile<T> extends StatelessWidget {
               Flexible(
                 child: Text(
                   title,
-                  style: titleStyle ?? theme.textTheme.bodyMedium,
+                  style: titleStyle ?? context.textStyles.bodyMedium,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                 ),
@@ -72,7 +73,7 @@ class AppRadioTile<T> extends StatelessWidget {
               Expanded(
                 child: Text(
                   title,
-                  style: titleStyle ?? theme.textTheme.bodyMedium,
+                  style: titleStyle ?? context.textStyles.bodyMedium,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                 ),

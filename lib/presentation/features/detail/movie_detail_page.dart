@@ -1,3 +1,4 @@
+import 'package:flutter_base_project/core/extensions/text_style_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_base_project/core/network/api_constants.dart';
 import 'package:flutter_base_project/generated/l10n.dart';
@@ -90,32 +91,26 @@ class _MovieDetailChildPageState extends State<MovieDetailChildPage> {
                             const SizedBox(width: 4),
                             Text(
                               movie?.voteAverage?.toStringAsFixed(1) ?? '0.0',
-                              style: const TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
-                              ),
+                              style: context.textStyles.movieRating,
                             ),
                             const Spacer(),
                             Text(
                               l10n.detailRelease(
                                 movie?.releaseDate ?? l10n.commonUnknown,
                               ),
-                              style: const TextStyle(fontSize: 16),
+                              style: context.textStyles.movieRelease,
                             ),
                           ],
                         ),
                         const SizedBox(height: 16),
                         Text(
                           l10n.detailOverview,
-                          style: const TextStyle(
-                            fontSize: 22,
-                            fontWeight: FontWeight.bold,
-                          ),
+                          style: context.textStyles.movieOverviewTitle,
                         ),
                         const SizedBox(height: 8),
                         Text(
                           movie?.overview ?? l10n.detailNoOverviewAvailable,
-                          style: const TextStyle(fontSize: 16, height: 1.5),
+                          style: context.textStyles.movieOverviewBody,
                         ),
                       ],
                     ),
