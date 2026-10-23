@@ -1,3 +1,4 @@
+import 'package:flutter_base_project/presentation/theme/app_text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_base_project/core/constants/app_assets.dart';
 import 'package:flutter_base_project/core/extensions/num_extensions.dart';
@@ -7,7 +8,8 @@ import 'package:flutter_base_project/data/models/entities/onboarding_item.dart';
 import 'package:flutter_base_project/presentation/features/onboarding/onboarding_cubit.dart';
 import 'package:flutter_base_project/presentation/features/onboarding/onboarding_state.dart';
 import 'package:flutter_base_project/presentation/features/onboarding/onboarding_navigator.dart';
-import 'package:flutter_base_project/data/repositories/onboarding_repository.dart';
+import 'package:flutter_base_project/domain/usecases/onboarding/has_completed_onboarding_use_case.dart';
+import 'package:flutter_base_project/domain/usecases/onboarding/complete_onboarding_use_case.dart';
 
 class OnboardingPage extends StatelessWidget {
   const OnboardingPage({super.key});
@@ -16,7 +18,8 @@ class OnboardingPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => OnboardingCubit(
-        repository: context.read<OnboardingRepository>(),
+        hasCompletedOnboarding: context.read<HasCompletedOnboardingUseCase>(),
+        completeOnboardingUseCase: context.read<CompleteOnboardingUseCase>(),
         navigator: OnboardingNavigator(context),
       )..checkIfOnboardingCompleted(),
       child: const OnboardingView(),
@@ -112,13 +115,13 @@ class _OnboardingViewState extends State<OnboardingView> {
                               32.height,
                               Text(
                                 items[index].title,
-                                style: _theme.textTheme.headlineMedium,
+                                style: AppTextStyles.headlineMedium,
                                 textAlign: TextAlign.center,
                               ),
                               16.height,
                               Text(
                                 items[index].description,
-                                style: _theme.textTheme.bodyLarge,
+                                style: AppTextStyles.bodyLarge,
                                 textAlign: TextAlign.center,
                               ),
                             ],

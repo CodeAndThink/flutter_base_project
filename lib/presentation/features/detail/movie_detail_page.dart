@@ -1,3 +1,4 @@
+import 'package:flutter_base_project/presentation/theme/app_text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_base_project/core/network/api_constants.dart';
 import 'package:flutter_base_project/generated/l10n.dart';
@@ -7,7 +8,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_base_project/presentation/widgets/scaffold/app_scaffold.dart';
 import 'package:flutter_base_project/presentation/features/detail/movie_detail_cubit.dart';
 import 'package:flutter_base_project/presentation/features/detail/movie_detail_state.dart';
-import 'package:flutter_base_project/data/repositories/movie_repository.dart';
+import 'package:flutter_base_project/domain/usecases/movie/get_movie_details_use_case.dart';
 
 class MovieDetailArgument {
   final int movieId;
@@ -23,7 +24,7 @@ class MovieDetailPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => MovieDetailCubit(
-        repository: context.read<MovieRepository>(),
+        getMovieDetails: context.read<GetMovieDetailsUseCase>(),
         navigator: MovieDetailNavigator(context),
       ),
       child: MovieDetailChildPage(args: args),
@@ -90,32 +91,26 @@ class _MovieDetailChildPageState extends State<MovieDetailChildPage> {
                             const SizedBox(width: 4),
                             Text(
                               movie?.voteAverage?.toStringAsFixed(1) ?? '0.0',
-                              style: const TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
-                              ),
+                              style: AppTextStyles.movieRating,
                             ),
                             const Spacer(),
                             Text(
                               l10n.detailRelease(
                                 movie?.releaseDate ?? l10n.commonUnknown,
                               ),
-                              style: const TextStyle(fontSize: 16),
+                              style: AppTextStyles.movieRelease,
                             ),
                           ],
                         ),
                         const SizedBox(height: 16),
                         Text(
                           l10n.detailOverview,
-                          style: const TextStyle(
-                            fontSize: 22,
-                            fontWeight: FontWeight.bold,
-                          ),
+                          style: AppTextStyles.movieOverviewTitle,
                         ),
                         const SizedBox(height: 8),
                         Text(
                           movie?.overview ?? l10n.detailNoOverviewAvailable,
-                          style: const TextStyle(fontSize: 16, height: 1.5),
+                          style: AppTextStyles.movieOverviewBody,
                         ),
                       ],
                     ),

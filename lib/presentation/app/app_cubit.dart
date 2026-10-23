@@ -2,15 +2,23 @@ import 'dart:async';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_base_project/core/services/connection_service.dart';
 import 'package:flutter_base_project/presentation/widgets/cubit/base_cubit.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_base_project/domain/usecases/settings/get_is_first_time_use_case.dart';
+import 'package:flutter_base_project/domain/usecases/settings/set_is_first_time_use_case.dart';
 
 part 'app_state.dart';
 
 class AppCubit extends BaseCubit<AppState> {
   final ConnectionService _connectionService;
-  static const _firstTimeKey = 'is_first_time';
+  final GetIsFirstTimeUseCase _getIsFirstTime;
+  final SetIsFirstTimeUseCase _setIsFirstTime;
 
-  AppCubit(this._connectionService) : super(const AppState()) {
+  AppCubit(
+    this._connectionService, {
+    required GetIsFirstTimeUseCase getIsFirstTime,
+    required SetIsFirstTimeUseCase setIsFirstTime,
+  }) : _getIsFirstTime = getIsFirstTime,
+       _setIsFirstTime = setIsFirstTime,
+       super(const AppState()) {
     _init();
   }
 
@@ -18,14 +26,12 @@ class AppCubit extends BaseCubit<AppState> {
     // Start connection monitoring service
     _connectionService.init();
 
-    final prefs = await SharedPreferences.getInstance();
-    final isFirstTime = prefs.getBool(_firstTimeKey) ?? true;
+    final isFirstTime = _getIsFirstTime();
     safeEmit(state.copyWith(isFirstTime: isFirstTime));
   }
 
   Future<void> completeOnboarding() async {
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.setBool(_firstTimeKey, false);
+    await _setIsFirstTime(false);
     safeEmit(state.copyWith(isFirstTime: false));
   }
 

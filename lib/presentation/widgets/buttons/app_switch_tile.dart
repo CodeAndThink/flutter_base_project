@@ -1,3 +1,4 @@
+import 'package:flutter_base_project/presentation/theme/app_text_styles.dart';
 import 'package:flutter/material.dart';
 
 class AppSwitchTile extends StatelessWidget {
@@ -22,12 +23,10 @@ class AppSwitchTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text(title, style: titleStyle ?? theme.textTheme.bodyMedium),
+        Text(title, style: titleStyle ?? AppTextStyles.bodyMedium),
         Switch(value: value, onChanged: onChanged),
       ],
     );

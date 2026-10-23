@@ -1,3 +1,4 @@
+import 'package:flutter_base_project/presentation/theme/app_text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_base_project/core/extensions/num_extensions.dart';
 
@@ -27,7 +28,7 @@ class AppTitleText extends StatelessWidget {
           ),
           Text(
             title,
-            style: style ?? Theme.of(context).textTheme.titleMedium,
+            style: style ?? AppTextStyles.titleMedium,
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
           ),
